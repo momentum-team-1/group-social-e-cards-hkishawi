@@ -12,8 +12,8 @@ class App extends React.Component {
 
       <Router>
         <div className='App'>
-          <Login />
           <Nav />
+          <Login />
           <About />
           <Card />
         </div>

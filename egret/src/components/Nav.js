@@ -1,4 +1,5 @@
 import React from 'react';
+import { getToken, getCards } from './Api'
 
  
 
