@@ -1,0 +1,26 @@
+.App {
+  text-align: center;
+  /* background: rgb(14, 43, 92);
+  color: rgb(240, 240, 252); */
+  margin-left: 4%;
+  margin-right: 4%;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: rgb(14, 43, 92);
+  color: rgb(240, 240, 252);
+  margin-left: 4%;
+  margin-right: 4%;
+}
+
+.nav-links {
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
