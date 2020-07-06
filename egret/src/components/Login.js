@@ -3,6 +3,7 @@
 import React from 'react'
 // import 'tachyons'
 import { getToken, getCards } from './Api'
+import { Redirect } from 'react-router-dom'
 
 class Login extends React.Component {
   constructor () {
@@ -12,23 +13,30 @@ class Login extends React.Component {
       password: '',
       token: localStorage.getItem('login_auth_token'),
       error: null,
-      cards: []
+      cards: [],
+      currentCard: null,
+      redirect: false
     }
 
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
+    this.currentCard = this.currentCard.bind(this)
   }
 
   componentDidMount () {
-      if (this.state.token) {
-        getCards(this.state.token).then(cards => this.setState({cards: cards}))
-      }
+    if (this.state.token) {
+      getCards(this.state.token).then(cards => this.setState({ cards: cards }))
+    }
   }
 
   componentDidUpdate (prevProps, prevState) {
-      if (this.state.token && this.state.token !== prevState.token) {
-        getCards(this.state.token).then(cards => this.setState({ cards: cards }))
-      }
+    if (this.state.token && this.state.token !== prevState.token) {
+      getCards(this.state.token).then(cards => this.setState({ cards: cards }))
+    }
+  }
+
+  currentCard (card) {
+    this.setState({ currentCard: card })
   }
 
   handleLogin (event) {
@@ -39,6 +47,7 @@ class Login extends React.Component {
         this.setState({ token: token, password: '' })
         localStorage.setItem('login_username', this.state.username)
         localStorage.setItem('login_auth_token', token)
+        this.setState({ redirect: true })
       })
 
       .catch(error => {
@@ -53,9 +62,14 @@ class Login extends React.Component {
     this.setState({ token: null, username: '' })
     localStorage.removeItem('login_username')
     localStorage.removeItem('login_auth_token')
-  }54
+  }
 
   render () {
+  
+    if (this.state.redirect) {
+      return (<Redirect to='/about' />)
+    }
+
     return (
       <div className=''>
         {
@@ -64,9 +78,22 @@ class Login extends React.Component {
               <div>
                 <h3>welcome, {this.state.username}</h3>
                 <button onClick={this.handleLogout}>Logout</button>
-                <ul>
-                    {this.state.cards.map(card => <li key={card.id}>{card.message}</li> )}
-               </ul>
+                {/* <ul>
+                  <article className='center mw5 mw6-ns br3 hidden ba b--black-10 mv4'>
+                    <h1 className='center f4 bg-near-white br3 br--top black-60 mv0 pv2 ph3'>your Egrets</h1>
+                    <div className='center pa3 bt b--black-10'>
+                      <p className='f6 f5-ns lh-copy measure'>
+                        {this.state.cards.map(card =>
+                          <li
+                            className='card pa3 bt b--black-10'
+                            key={card.id}
+                          >{card.message}
+                          </li>)}
+                      </p>
+                    </div>
+                  </article>
+                </ul> */}
+
               </div>
             )
             : (
@@ -80,7 +107,7 @@ class Login extends React.Component {
                     onChange={event => this.setState({ username: event.target.value })}
                   />
                 </div>
-
+                
                 <div className=''>
                   <label htmlFor='password' className=''>Password</label>
                   <input

@@ -4,6 +4,7 @@
   color: rgb(240, 240, 252); */
   margin-left: 4%;
   margin-right: 4%;
+  font-family: 'quicksand'
 }
 
 nav {
@@ -11,10 +12,17 @@ nav {
   justify-content: space-around;
   align-items: center;
   min-height: 10vh;
-  background: rgb(14, 43, 92);
-  color: rgb(240, 240, 252);
-  margin-left: 4%;
-  margin-right: 4%;
+  background: rgb(225, 225, 225);
+  color: rgb(86, 86, 89);
+  margin-left: ;
+  margin-right: ;
+}
+
+.dropdown {
+  border: solid lightgray;
+  text-align: right;
+  height: 20%;
+  width: 20%;
 }
 
 .nav-links {
@@ -23,4 +31,45 @@ nav {
   justify-content: space-around;
   align-items: center;
   list-style: none;
+}
+
+.cards {
+  list-style: none; 
+  text-decoration: none;
+  font-size: .9em;
+}
+
+.card {
+  list-style: none;
+}
+
+.nav-links {
+  color: inherit;
+  text-decoration: none;
+  font-size: .9em;
+
+}
+
+#spinner {
+  /* background: linear-gradient(to bottom right, orange, purple); */
+  animation-name: spin, depth;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 30s;
+  text-align: center;
+  font-size: 40px;
+  font-family: Arial, "Helvetica Neue",Helvetica, sans-serif;
+  font-weight: bold;
+  color: linear-gradient(to bottom right, orange, purple);
+}
+@keyframes spin {
+  from { transform: rotateX(0deg); }
+  to { transform: rotateY(360deg); }
+}
+@keyframes depth {
+  15% { text-shadow: 0 0 gray; }
+  25% { text-shadow: 10px 0 gray, 2px 0 gray, 3px 0 gray, 4px 0 gray, 5px 0 gray; }
+  50% { text-shadow: 0 0 gray; }
+  75% { text-shadow: -1px 0 gray, -2px 0 gray, -3px 0 gray, -4px 0 gray, -5px 0 gray; }
+  100% { text-shadow: 0 0 gray; }
 }
