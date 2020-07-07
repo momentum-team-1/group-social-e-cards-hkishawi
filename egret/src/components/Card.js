@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import axios from 'axios'
 import { getCards } from './Api'
 import Dropdown from '../components/Dropdown'
+import {postCards} from '../components/Api'
 // import Cards from './components/Cards'
 
 const fonts = [
@@ -22,11 +23,12 @@ export default class Card extends React.Component {
     this.state = {
       card: null,
       token: localStorage.getItem('login_auth_token'),
-      title: null,
-      inner_text: '',
-      outer_text: '',
-      font: null,
-      fontSize: null
+      title: [],
+      color: [],
+      font: [],
+      inner_text: [],
+      outer_text: []
+
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -34,7 +36,7 @@ export default class Card extends React.Component {
 
   componentDidMount () {
     // const cardUrl = `https://egret-kishawi-carter.herokuapp.com/${this.props.currentCard.id}`
-    const cardUrl = 'https://egret-kishawi-carter.herokuapp.com/api/cards/'
+    const cardUrl = 'egret-kishawi-carter.herokuapp.com/api/cards'
     if (this.state.token) {
       console.log(this.state.token)
       // axios.get(cardUrl)
@@ -52,27 +54,41 @@ export default class Card extends React.Component {
 
   handleChange (event) {
     this.setState({ font: event.target.font })
-    this.setState({ fontSize: event.target.fontSize })
+    this.setState({ color: event.target.color })
     this.setState({ title: event.target.title })
-    this.setState({ outerText: event.target.outerText })
+    this.setState({ outer_text: event.target.outer_text })
     this.setState({ inner_text: event.target.inner_text })
   }
 
+  //   handleSubmit (event) {
+  //     event.preventDefault()
+  //     console.log(this.state)
+  //     if (this.state.token) {
+  //       axios
+  //         .post('https://egret-kishawi-carter.herokuapp.com/api/cards/', this.state)
+  //         .then(response => {
+  //           console.log(response)
+  //         })
+  //         .catch(error => {
+  //           console.log(error)
+  //         })
+  //     }
+  //   }
   handleSubmit (event) {
     event.preventDefault()
-    console.log(this.state)
-    axios
-      .post('https://egret-kishawi-carter.herokuapp.com/${this.props.currentCard.id', this.state)
-      .then(response => {
-        console.log(response)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    if (this.state.token) {
+      postCards(this.state.token)
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   }
 
   render () {
-    const { card } = this.state
+    const { card, title, color, font, inner_text, outer_text } = this.state
     return (
       <div>
         <h1>create a new card</h1>
@@ -81,15 +97,15 @@ export default class Card extends React.Component {
           <label>
                 pick a font!
             <select font={this.state.font} onChange={this.handleChange}>
-              <option font='calibri'>Calibri</option>
-              <option font='arial'>Arial</option>
+              <option font='F_ONE'>F_ONE</option>
+              <option font='F_TWO'>F_TWO</option>
             </select>
           </label>
           <label>
-                choose a size!
-            <select fontSize={this.state.fontSize} onChange={this.handleChange}>
-              <option fontSize='12'>12</option>
-              <option fontSize='13'>13</option>
+                choose a color!
+            <select color={this.state.color} onChange={this.handleChange}>
+              <option color='C_ONE'>C_ONE</option>
+              <option color='C_TWO'>C_TWO</option>
             </select>
           </label>
 
@@ -99,7 +115,7 @@ export default class Card extends React.Component {
             <label>Title: </label>
             <input
               placeholder='title'
-              title={this.state.title}
+              value={this.state.title || ''}
               type='text'
               onChange={this.handleChange}
             />
@@ -109,7 +125,7 @@ export default class Card extends React.Component {
             <label>outer-text: </label>
             <input
               placeholder='outer_text'
-              outer_text={this.state.outer_text}
+              value={this.state.outer_text || ''}
               type='text'
               onChange={this.handleChange}
             />
@@ -119,7 +135,7 @@ export default class Card extends React.Component {
             <label>inner-text: </label>
             <input
               placeholder='inner_text'
-              value={this.state.inner_text}
+              value={this.state.inner_text || ''}
               type='text'
               onChange={this.handleChange}
             />

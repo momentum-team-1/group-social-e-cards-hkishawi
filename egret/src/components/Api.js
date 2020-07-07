@@ -19,3 +19,10 @@ export function getCards (token) {
   })
 }
 
+export function postCards (token) {
+  return request.post('api/cards', {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+}

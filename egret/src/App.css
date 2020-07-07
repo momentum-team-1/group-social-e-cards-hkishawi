@@ -50,6 +50,14 @@ nav {
 
 }
 
+.egret {
+  font-size: 72px;
+  background: -webkit-linear-gradient(rgb(247, 156, 107), rgb(102, 83, 223));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
 #spinner {
   /* background: linear-gradient(to bottom right, orange, purple); */
   animation-name: spin, depth;
@@ -60,7 +68,7 @@ nav {
   font-size: 40px;
   font-family: Arial, "Helvetica Neue",Helvetica, sans-serif;
   font-weight: bold;
-  color: linear-gradient(to bottom right, orange, purple);
+  /* color: linear-gradient(to bottom right, orange, purple); */
 }
 @keyframes spin {
   from { transform: rotateX(0deg); }

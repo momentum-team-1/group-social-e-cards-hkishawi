@@ -26,7 +26,7 @@ class Nav extends React.Component {
     return (
       <nav>
         <div id=''>
-          <h2 id='spinner'><b>e-gret</b></h2>
+          <h2 className='egret' id='spinner'><b>e-gret</b></h2>
           <h3>your favorite e-cards site!</h3>
         </div>
         <h3>Egret logo</h3>
