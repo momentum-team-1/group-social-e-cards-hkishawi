@@ -9,7 +9,7 @@ function Dropdown ({ title, items = [], multiSelect = false }) {
 
   return (
     <div className=''>
-      <h2>this is a heaping pile of nonsense </h2>
+      <h2></h2>
       <div
         className='dropdown'
         tabIndex={0}

@@ -13,36 +13,41 @@ class Nav extends React.Component {
 
   logout () {
     localStorage.setItem('login_auth_token', 'token')
-  localStorage.clear()
-}
+    localStorage.clear()
+  }
 
   render () {
-    const navStyle = {
-      color: 'gray'
-    }
     if (this.state.redirect) {
-      return (<Redirect to="/login" />)
+      return (<Redirect to='/login' />)
     }
     return (
-      <nav>
-        <div id=''>
+      <nav className='nav flex flex-column'>
+        <div>
           <h2 className='egret' id='spinner'><b>e-gret</b></h2>
           <h3>your favorite e-cards site!</h3>
         </div>
-        <h3>Egret logo</h3>
+        
+        <div className='logo' />
         <ul className='nav-links'>
-          <Link style={navStyle} to='/home'>
-            <li>Home</li>
+          <Link to='/profile/'>
+            <li className='nav-link'>Home</li>
           </Link>
-          <Link style={navStyle} to='/cards/all'>
-            <li>E-Cards</li>
+          <Link to='/cards/all'>
+            <li className='nav-link'>E-Cards</li>
           </Link>
-          <Link style={navStyle} to='/about'>
-            <li>About</li>
+          <Link to='/friends/'>
+            <li className='nav-link'>Friends</li>
           </Link>
-          <Link style={navStyle} to='/login'>
-            <li onClick={this.logout}>Logout</li>
+          <Link to='/cards/:id/'>
+            <li className='nav-link'>New Card</li>
           </Link>
+          <Link to='/about'>
+            <li className='nav-link'>About</li>
+          </Link>
+          <Link to='/login'>
+            <li className='nav-link' onClick={this.logout}>Logout</li>
+          </Link>
+
         </ul>
       </nav>
     )

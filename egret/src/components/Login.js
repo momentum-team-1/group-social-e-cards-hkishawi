@@ -1,9 +1,9 @@
 /* globals localStorage */
-
+import App from '../App.js'
 import React from 'react'
 // import 'tachyons'
 import { getToken, getCards } from './Api'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 class Login extends React.Component {
   constructor () {
@@ -65,9 +65,8 @@ class Login extends React.Component {
   }
 
   render () {
-  
     if (this.state.redirect) {
-      return (<Redirect to='/about' />)
+      return (<Redirect to='/cards/all/' />)
     }
 
     return (
@@ -77,7 +76,9 @@ class Login extends React.Component {
             ? (
               <div>
                 <h3>welcome, {this.state.username}</h3>
+                <Link to='/login'>
                 <button onClick={this.handleLogout}>Logout</button>
+                </Link>
                 {/* <ul>
                   <article className='center mw5 mw6-ns br3 hidden ba b--black-10 mv4'>
                     <h1 className='center f4 bg-near-white br3 br--top black-60 mv0 pv2 ph3'>your Egrets</h1>
@@ -107,7 +108,7 @@ class Login extends React.Component {
                     onChange={event => this.setState({ username: event.target.value })}
                   />
                 </div>
-                
+
                 <div className=''>
                   <label htmlFor='password' className=''>Password</label>
                   <input
@@ -116,9 +117,14 @@ class Login extends React.Component {
                     onChange={event => this.setState({ password: event.target.value })}
                   />
                 </div>
-
+              
                 <div className=''>
-                  <button type='submit' className=''>login</button>
+                <Link to='/cards/all/'>
+                  <button 
+                    type='submit' 
+                    onClick='handleLogin' 
+                    className=''>login</button>
+                  </Link>
                 </div>
               </form>
             )

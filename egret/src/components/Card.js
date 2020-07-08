@@ -1,9 +1,9 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Redirect, Route, Link } from 'react-router-dom'
 import axios from 'axios'
 import { getCards } from './Api'
-import Dropdown from '../components/Dropdown'
-import {postCards} from '../components/Api'
+
+import { postCards } from '../components/Api'
 // import Cards from './components/Cards'
 
 const fonts = [
@@ -18,17 +18,21 @@ const fonts = [
 ]
 
 export default class Card extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor () {
+    super()
     this.state = {
-      card: null,
+      card: '',
       token: localStorage.getItem('login_auth_token'),
-      title: [],
-      color: [],
-      font: [],
-      inner_text: [],
-      outer_text: []
-
+      title: '',
+      color: 'null',
+      font: 'null',
+      inner_text: '',
+      outer_text: '',
+      isInEditMode: false,
+      titleError: '',
+      inner_textError: '',
+      outer_textError: '',
+      redirect: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -36,7 +40,7 @@ export default class Card extends React.Component {
 
   componentDidMount () {
     // const cardUrl = `https://egret-kishawi-carter.herokuapp.com/${this.props.currentCard.id}`
-    const cardUrl = 'egret-kishawi-carter.herokuapp.com/api/cards'
+    const cardUrl = 'egret-kishawi-carter.herokuapp.com/api/cards/all/'
     if (this.state.token) {
       console.log(this.state.token)
       // axios.get(cardUrl)
@@ -48,17 +52,19 @@ export default class Card extends React.Component {
     }
   }
 
+  changeEditMode = () => {
+    this.setState({
+      isInEditMode: !this.state.isInEditMode
+    })
+  }
+
   componentWillMount () {
     console.log('componentDidUnmount')
   }
 
-  handleChange (event) {
-    this.setState({ font: event.target.font })
-    this.setState({ color: event.target.color })
-    this.setState({ title: event.target.title })
-    this.setState({ outer_text: event.target.outer_text })
-    this.setState({ inner_text: event.target.inner_text })
-  }
+ handleChange = (e) => {
+   this.setState({[e.target.name]: e.target.value})
+ }
 
   //   handleSubmit (event) {
   //     event.preventDefault()
@@ -74,21 +80,41 @@ export default class Card extends React.Component {
   //         })
   //     }
   //   }
-  handleSubmit (event) {
-    event.preventDefault()
-    if (this.state.token) {
-      postCards(this.state.token)
-        .then(response => {
-          console.log(response)
-        })
-        .catch(error => {
-          console.log(error)
-        })
+
+handleSubmit = e => {
+  console.log(this.state)
+  axios.post('https://egret-kishawi-carter.herokuapp.com/api/cards/', this.state,  {
+    headers: {
+      Authorization: `Token ${this.state.token}`
     }
-  }
+  })
+  .then(response => {
+    console.log(response)
+  })
+  .catch(error => {
+    console.log(error)
+  })
+}
+
+  // handleSubmit (event) {
+  //   event.preventDefault()
+  //   if (this.state.token) {
+  //     postCards(this.state.token)
+  //       .then(response => {
+  //         console.log(response)
+  //       })
+  //       .catch(error => {
+  //         console.log(error)
+  //       })
+  //   }
+  // }
 
   render () {
     const { card, title, color, font, inner_text, outer_text } = this.state
+    if (this.state.redirect) {
+      return (<Redirect to='/cards/all/' />)
+    }
+
     return (
       <div>
         <h1>create a new card</h1>
@@ -96,16 +122,22 @@ export default class Card extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <label>
                 pick a font!
-            <select font={this.state.font} onChange={this.handleChange}>
-              <option font='F_ONE'>F_ONE</option>
-              <option font='F_TWO'>F_TWO</option>
+            <select 
+              value={font}
+              name='font'
+              onChange={this.handleChange}>
+              <option font='F_ONE'>calibri</option>
+              <option font='F_TWO'>arial</option>
             </select>
           </label>
           <label>
                 choose a color!
-            <select color={this.state.color} onChange={this.handleChange}>
-              <option color='C_ONE'>C_ONE</option>
-              <option color='C_TWO'>C_TWO</option>
+            <select 
+              value={color} 
+              name='color'
+              onChange={this.handleChange}>
+              <option color='C_ONE'>blue</option>
+              <option color='C_TWO'>green</option>
             </select>
           </label>
 
@@ -115,42 +147,51 @@ export default class Card extends React.Component {
             <label>Title: </label>
             <input
               placeholder='title'
-              value={this.state.title || ''}
+              name='title'
+              value={title}
               type='text'
               onChange={this.handleChange}
             />
           </div>
-          <br />
+        
           <div>
             <label>outer-text: </label>
             <input
               placeholder='outer_text'
-              value={this.state.outer_text || ''}
+              name='outer_text'
+              value={outer_text}
               type='text'
               onChange={this.handleChange}
             />
           </div>
-          <br />
+         
           <div>
             <label>inner-text: </label>
             <input
               placeholder='inner_text'
-              value={this.state.inner_text || ''}
+              name='inner_text'
+              value={inner_text}
               type='text'
               onChange={this.handleChange}
             />
           </div>
+          <Link to='/cards/all/'>
           <button type='submit' value='Submit'>submit new card</button>
+          </Link>
         </form>
 
-        <ul>
+        {/* <ul>
           <article className='center mw5 mw6-ns br3 hidden ba b--black-10 mv4'>
-            <h1 className='center f4 bg-near-white br3 br--top black-60 mv0 pv2 ph3' />
+            <h1 className='center f4 bg-near-white br3 br--top black-60 mv0 pv2 ph3' /> */}
 
-            <div className='center pa3 bt b--black-10' />
-            <div />
-          </article>
-        </ul>
+            {/* <div onDoubleClick={this.changeEditMode}className='center pa3 bt b--black-10' />
+            <li>{this.state.title}</li>
+            <li>{this.state.outer_text}</li>
+            <li>{this.state.inner_text}</li>
+           
+            <div /> */}
+          {/* </article>
+        </ul> */}
 
       </div>
     )
