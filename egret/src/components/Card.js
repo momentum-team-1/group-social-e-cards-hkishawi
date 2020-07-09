@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Redirect, Route, Link } from 'react-router-dom'
 import axios from 'axios'
 import { getCards } from './Api'
@@ -176,7 +176,7 @@ handleSubmit = e => {
             />
           </div>
           <Link to='/cards/all/'>
-          <button type='submit' value='Submit'>submit new card</button>
+          <button type='submit' value='Submit' onClick='this.handleSubmit'>submit new card</button>
           </Link>
         </form>
 

@@ -32,37 +32,6 @@ export default class Cards extends React.Component {
     this.setState({ currentCard: card })
   }
 
-  // deleteCard = (cardId) => {
-  //   if (this.state.token) {
-  //     deleteACard(this.state.token)
-  //       .then(response => {
-  //         if(response.data != null) {
-  //           alert('book deleted successfully')
-  //         }
-  //       })
-  //   }
-
-  // }
-
-  // deleteCard = (cardId) => {
-  //   console.log(cardId)
-  //   axios.delete(`http://egret-kishawi-carter.herokuapp.com/api/cards/${cardId}/`, this.state,{
-
-  //     headers: {
-  //       Authorization: `Token ${this.state.token}`
-  //     }
-  //   })
-  //     .then(response => {
-  //       console.log(response)
-  //       if(response.data.results != null) {
-  //         alert('card deleted successfully');
-  //         this.setState({
-  //           cards: this.state.cards.filter(card => card.id !== card.id)
-  //         })
-  //       }
-  //     })
-  // };
-
   deleteCard (cardId) {
     console.log(cardId)
     if (this.state.token) {
@@ -98,15 +67,19 @@ export default class Cards extends React.Component {
                 <ul key={card.id} className=' cards'>
                   <div className=' pa1 mw2 mw6-ns br2 hidden ba b--black-10 mv1' key={card.id}>
                     <Link to='/cards/:id/'>
-                      <li>{card.title}</li>
                       <li>creator #: {card.creator}</li>
+                      <li>{card.title}</li>
                       <li>{card.outer_text}</li>
                       <li>{card.inner_text}</li>
-                      </Link>
-                      <Link to='/cards/all/'>
-                      <button onClick={this.deleteCard.bind(this, card.id)} className='button'>delete card</button>
-                      <LikeButton cardId={card.id}/>
-                      </Link>
+                    </Link>
+                    <Link to='/cards/all/'>
+                      <button
+                        onClick={this.deleteCard.bind(this, card.id)}
+                        className='button'
+                      >delete card
+                      </button>
+                      <LikeButton cardId={card.id} />
+                    </Link>
                   </div>
                 </ul>
               )}

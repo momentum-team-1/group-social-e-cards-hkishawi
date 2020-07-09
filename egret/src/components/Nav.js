@@ -44,8 +44,11 @@ class Nav extends React.Component {
           <Link to='/about'>
             <li className='nav-link'>About</li>
           </Link>
-          <Link to='/login'>
+          <Link to='/login/'>
             <li className='nav-link' onClick={this.logout}>Logout</li>
+          </Link>
+          <Link to='/favorites/'>
+            <li className='nav-link'>Favs</li>
           </Link>
 
         </ul>

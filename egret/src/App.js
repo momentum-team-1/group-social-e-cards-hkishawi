@@ -8,6 +8,7 @@ import Card from './components/Card'
 import Dropdown from './components/Dropdown'
 import Friends from './components/Friends'
 import Profile from './components/Profile'
+import Favorites from './components/Favorites'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 class App extends React.Component {
@@ -26,6 +27,7 @@ class App extends React.Component {
             <Route path='/cards/:id/' component={Card} />
             <Route path='/friends/' component={Friends} />
             <Route path='/profile/' component={Profile} />
+            <Route path='/favorites/' component={Favorites} />
           </Switch>
         </div>
       </Router>

@@ -33,6 +33,7 @@ export default class Friends extends React.Component {
           <div className='left div v-mid pa3 bt b--black-10'>
             {users.filter(user => user.id == 1).map((user, id) =>
               <ul key={user.id} className='cards'>
+                  <img src='https://placebear.com/g/200/300' className='placeBear' />
                 <li><b>name: </b> {user.username}</li>
                 <li><b>birthday: </b>placeholder 07/01/2020  {user.birthday}</li>
                 <li><b>email: </b> {user.email}</li>

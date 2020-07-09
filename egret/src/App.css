@@ -69,7 +69,8 @@
 
 .egret {
   font-size: 72px;
-  background: -webkit-linear-gradient(rgb(247, 156, 107), rgb(102, 83, 223));
+  background: 
+    linear-gradient(to bottom right, rgb(247, 156, 107), rgb(102, 83, 223));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -117,4 +118,9 @@
   border: 1px solid #bbb;
   box-sizing: border-box;
   margin: 5px;
+}
+
+.placeBear {
+  height: 150px;
+  width: 125px;
 }
