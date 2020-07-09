@@ -7,6 +7,7 @@ import LikeButton from '../components/LikeButton'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 export default class Cards extends React.Component {
+  
   constructor () {
     super()
     this.state = {
@@ -16,6 +17,8 @@ export default class Cards extends React.Component {
       currentCard: null
     }
     this.currentCard = this.currentCard.bind(this)
+      this.deleteCard = this.deleteCard.bind(this)
+   
   }
 
   componentDidMount () {
@@ -54,7 +57,7 @@ export default class Cards extends React.Component {
 
   render () {
     const { cards, id, currentCard, deleteCard } = this.state
-
+   
     return (
       <div className='App'>
         {/* <h1>your cards</h1> */}
@@ -74,7 +77,7 @@ export default class Cards extends React.Component {
                     </Link>
                     <Link to='/cards/all/'>
                       <button
-                        onClick={this.deleteCard.bind(this, card.id)}
+                        onClick={ () => this.deleteCard(card.id)}
                         className='button'
                       >delete card
                       </button>

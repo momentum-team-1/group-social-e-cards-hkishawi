@@ -24,7 +24,7 @@ class Nav extends React.Component {
       <nav className='nav flex flex-column'>
         <div>
           <h2 className='egret' id='spinner'><b>e-gret</b></h2>
-          <h3>your favorite e-cards site!</h3>
+          <h3>all e-cards, no regrets</h3>
         </div>
         
         <div className='logo' />

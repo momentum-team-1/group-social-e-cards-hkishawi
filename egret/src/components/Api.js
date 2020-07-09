@@ -42,3 +42,11 @@ export function deleteACard (token, cardId) {
     }
   })
 }
+
+export function getFavorites (token) {
+  return request.get('api/favorites/', {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+}

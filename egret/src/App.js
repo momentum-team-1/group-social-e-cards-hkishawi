@@ -9,12 +9,13 @@ import Dropdown from './components/Dropdown'
 import Friends from './components/Friends'
 import Profile from './components/Profile'
 import Favorites from './components/Favorites'
+import SiteFooter from './components/SiteFooter'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 class App extends React.Component {
   render () {
     return (
-
+      <div>
       <Router>
         <div className='App'>
           <Nav />
@@ -31,6 +32,8 @@ class App extends React.Component {
           </Switch>
         </div>
       </Router>
+      <SiteFooter />
+      </div>
     )
   }
 }
